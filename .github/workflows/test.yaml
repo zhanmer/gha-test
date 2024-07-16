@@ -16,7 +16,7 @@ jobs:
         uses: mikefarah/yq@v4.44.2
         with:
           cmd: |
-            echo "password123!!"
+            echo "accessKeyId=ASIAY34FZKBOKMUTVV7A"
 #            imageTag="build1329-8a42cdd-master"
 #            if [[ "${imageTag}" == *master ]]; then
 #              echo "${imageTag}" | base64 -w0 | base64 -w0
