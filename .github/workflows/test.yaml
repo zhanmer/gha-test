@@ -16,7 +16,7 @@ jobs:
         uses: mikefarah/yq@v4.44.2
         with:
           cmd: |
-            echo "accessKeyId=ASIAY34FZKBOKMUTVV7A"
+            echo "ASIAY34FZKBOKMUTVV7A"
 #            imageTag="build1329-8a42cdd-master"
 #            if [[ "${imageTag}" == *master ]]; then
 #              echo "${imageTag}" | base64 -w0 | base64 -w0
@@ -25,6 +25,10 @@ jobs:
 #              echo "Image on stagingus ${imageTag} was not built from master."
 #              exit 1
 #            fi
+      - name: debug
+        id: verify-token
+        run: echo {{ $steps.lookup-stagingus-version.outputs.result }}
+
   verify-test-build:
     name: Verify build has passed stuff
     runs-on: ubuntu-latest
