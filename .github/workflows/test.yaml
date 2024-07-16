@@ -27,7 +27,7 @@ jobs:
 #            fi
       - name: debug
         id: verify-token
-        run: echo {{ $steps.lookup-stagingus-version.outputs.result }}
+        run: echo ${{ steps.lookup-stagingus-version.outputs.result }}
 
   verify-test-build:
     name: Verify build has passed stuff
