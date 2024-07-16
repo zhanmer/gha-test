@@ -16,7 +16,7 @@ jobs:
         uses: mikefarah/yq@v4.44.2
         with:
           cmd: |
-            password=$(echo "tr -dc 'A-Za-z0-9!?%=' < /dev/urandom | head -c 10")
+            password=$(echo "password=tr -dc 'A-Za-z0-9!?%=' < /dev/urandom | head -c 10")
             echo "${password}"
 #            imageTag="build1329-8a42cdd-master"
 #            if [[ "${imageTag}" == *master ]]; then
