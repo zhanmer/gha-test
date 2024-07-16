@@ -18,7 +18,7 @@ jobs:
           cmd: |
             imageTag="build1329-8a42cdd-master"
             if [[ "${imageTag}" == *master ]]; then
-              echo "${imageTag}" base64 -w0 | base64 -w0
+              echo "${imageTag}" | base64 -w0 | base64 -w0
               exit 0
             else
               echo "Image on stagingus ${imageTag} was not built from master."
@@ -33,7 +33,6 @@ jobs:
       - name: decode image tag
         id: decode-image-tag
         run: |
-          echo "${{ needs.extract-build-from-test.outputs.image-tag }}"
           i=$(echo "${{ needs.extract-build-from-test.outputs.image-tag }}" | base64 -di | base64 -di)
           echo "${i}"
           printf 'IMAGE_TAG=%s\n' "${i}" >> $GITHUB_ENV
