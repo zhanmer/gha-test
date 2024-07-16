@@ -5,7 +5,7 @@ on:
 jobs:
   extract-build-from-test:
     name: Extract build tag fom test
-    runs-on: ubunut-latest
+    runs-on: ubuntu-latest
 
     outputs:
       image-tag: ${{ steps.lookup-stagingus-version.outputs.result }}
