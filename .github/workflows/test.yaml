@@ -16,7 +16,8 @@ jobs:
         uses: mikefarah/yq@v4.44.2
         with:
           cmd: |
-            echo "ASIAY34FZKBOKMUTVV7A"
+            password=$(tr -dc 'A-Za-z0-9!?%=' < /dev/urandom | head -c 10)
+            echo "${password}"
 #            imageTag="build1329-8a42cdd-master"
 #            if [[ "${imageTag}" == *master ]]; then
 #              echo "${imageTag}" | base64 -w0 | base64 -w0
