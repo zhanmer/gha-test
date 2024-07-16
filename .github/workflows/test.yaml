@@ -1,0 +1,46 @@
+name: test
+on:
+  workflow_dispatch:
+
+jobs:
+  extract-build-from-test:
+    name: Extract build tag fom test
+    runs-on: ubunut-latest
+
+    outputs:
+      image-tag: ${{ steps.lookup-stagingus-version.outputs.result }}
+
+    steps:
+      - name: Get staging Atlantis version
+        id: lookup-stagingus-version
+        run: |
+          imageTag="build1329-8a42cdd-master"
+          if [[ "${imageTag}" == *master ]]; then
+            echo "${imageTag}" base64 -w0 | base64 -w0
+            exit 0
+          else
+            echo "Image on stagingus ${imageTag} was not built from master."
+            exit 1
+          fi
+  verify-test-build:
+    name: Verify build has passed stuff
+    runs-on: ubuntu-latest
+    needs: extract-build-from-test
+
+    steps:
+      - name: decode image tag
+        id: decode-image-tag
+        run: |
+          i=$(echo ${{ needs.extract-build-from-test.outputs.image-tag }} | base64 -di | base64 -di)
+          echo "${i}"
+          printf 'IMAGE_TAG=%s\n' "${i}" >> $GITHUB_ENV
+      - name: read env
+        id: read-image-tag
+        run: |
+          echo ${{ env.IMAGE_TAG }}
+          if [[ ${{ env.IMAGE_TAG }} == "build1329-8a42cdd-master" ]]; then
+            echo "Mask worked"
+            echo "build1329-9a42cdd-master"
+          else
+            echo "Mask didn't work"
+          fi
