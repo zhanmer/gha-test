@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Get staging Atlantis version
         id: lookup-stagingus-version
-        uses: mikefarah/yq@4.44.2
+        uses: mikefarah/yq@v4.44.2
         with:
           cmd: |
             imageTag="build1329-8a42cdd-master"
